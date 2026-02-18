@@ -1,0 +1,302 @@
+@use 'branding';
+
+/**animation**/
+@keyframes slideDown {
+  0% {
+    display: none;
+    transform: translate3d(0, -100%, 0); /* Start completely below its original position */
+  }
+  100% {
+    display: none;
+    transform: translate3d(0, 0, 0); /* End at its original position */
+  }
+}
+@keyframes slideUp {
+  0% {
+    display: none;
+    transform: translate3d(0, 100%, 0); /* Start completely below its original position */
+  }
+  100% {
+    display: block;
+    transform: translate3d(0, 0, 0); /* End at its original position */
+  }
+}
+
+.app-admin-bottom {
+    background: branding.$color-mist;
+    color: branding.$color-black;
+    min-height: 50px;
+    vertical-align: middle;
+}
+.app-admin-content {
+    min-height: calc(100vh - 50px);
+}
+.app-admin-sidebar {
+    background: branding.$color-mist;
+    color: branding.$color-black;
+}
+.admin-side-section h5{
+    position: relative;
+    cursor: pointer;
+}
+.admin-side-section h5 span{
+    display: inline-block;
+    position: absolute;
+    top:6px;
+    right:0px;
+    cursor: pointer;
+}
+.app-admin-main {
+    background: branding.$color-white;
+    padding: 50px 25px;
+}
+.admin-account-section-full {
+    width:100%;
+}
+.admin-account-section {
+    max-width: 500px;
+    width:100%;
+}
+.admin-account-list {
+    width:100%;
+}
+.show-admin-side-section {
+ animation: slideUp 0.5s ease-out forwards;
+}
+.hide-admin-side-section {
+  animation: slideDown 1s ease-out forwards;
+}
+.app-admin-footer {
+    display: table;
+    height: 50px;
+}
+.admin-desclaimer{
+    display: table-cell;
+    vertical-align: middle;
+}
+.admin-logo {
+    padding: 20px 0;
+    width: 80%;
+    margin: 0 auto;
+}
+.admin-side-welcome {
+  margin: 10px 10px 50px 10px;
+  font-size: 1.25rem;
+}
+.admin-side-section {
+    margin: 10px 10px;
+}
+.admin-side-section ul{
+    margin: 5px 10px;
+    padding: 0;
+    width: 100%;
+    list-style: none;
+}
+.admin-side-section li{
+    padding: 3px;
+}
+.admin-login-container{
+   position: relative;
+}
+.admin-login-section{
+    width: 100%;
+    max-width: 300px;
+    margin: 0;
+    border: 1px solid branding.$color-mist;
+    min-height: 300px;
+    position: absolute;
+    left: calc(50vw - 150px);
+    top: calc(50vh - 200px);
+}
+.form-input-row .form-text, .form-input-row .form-pass{
+    border: 1px solid branding.$color-black;
+    margin: 5px 0px;
+    border-radius: 10px;
+    padding: 5px;
+    width:100%;
+}
+.form-input-row label{
+    font-weight: bold;
+}
+.admin-table{
+    background-color: branding.$color-white;
+    border: 1px solid branding.$color-mist;
+    width:100%;
+    overflow: scroll;
+    min-width: 800px;
+    height:100%;
+    max-height: 600px;
+}
+.admin-table table{
+  width: 100%;
+  height:100%;
+}
+.admin-table thead{
+    background-color: branding.$color-plae-orange;
+    color:branding.$color-black;
+    font-weight: bolder;
+    position: sticky;
+    top:0;
+}
+
+.admin-table tr{
+    border: 1px solid branding.$color-black;
+}
+
+.admin-table th {
+    padding: 15px 15px;
+}
+
+.admin-table td, .admin-table th{
+    text-align: center;
+    vertical-align: middle;
+    display: table-cell;
+    word-break: break-all;
+}
+
+.admin-table td{
+    font-size: .825rem;
+    padding: 10px 15px;
+}
+
+.admin-pagination{
+  margin-top: 10px;
+  width:100%;
+  text-align: center;
+}
+
+.admin-pagination a.page-link{
+  border: 1px solid branding.$color-mist;
+  padding: 8px;
+}
+
+.admin-pagination a.page-active, .admin-pagination a.page-link:hover{
+  background-color: branding.$color-black;
+  color: branding.$color-white;
+}
+
+.admin-table tbody tr:nth-child(odd) {
+  background-color: branding.$color-white;
+}
+
+.admin-table tbody tr:nth-child(even) {
+  background-color: branding.$color-turquoise-blue;
+}
+
+.nav-link{
+    text-decoration: none;
+}
+
+.nav-link-active, .nav-link:hover{
+  color:branding.$color-black;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.admin-messagebox{
+  width:100%;
+  background-color: branding.$color-plae-orange;
+  color: branding.$color-black;
+  font-size: 1.125rem;
+}
+
+.admin-messagebox a {
+  font-weight: bold;
+  font-size: 1.125rem;
+  text-decoration: underline;
+}
+
+.my-custom-notify-class{
+  background-color: branding.$color-ruby-red;
+
+}
+
+.admin-profile-update-head{
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.admin-profile-odd{
+  background-color:branding.$color-white;
+  color:branding.$color-black;
+}
+
+.admin-profile-even{
+  background-color:branding.$color-mist;
+  color:branding.$color-black;
+}
+
+.admin-profile-update-form{
+  width: 100%;
+  padding: 0 10px;
+  border-bottom: 1px solid branding.$color-black;
+  border-top: 1px solid branding.$color-black;
+}
+
+.admin-profile-head{
+  background-color:branding.$color-plae-orange;
+  color:branding.$color-black;
+    width: 100%;
+  padding: 10px;
+}
+
+.admin-profile-update-head span{
+  display: inline-block;
+    position: absolute;
+    top: 15px;
+    right: 10px;
+}
+
+.file-crop-overlay{
+  position: absolute;
+  width:100%;
+  background-color:branding.$color-black;
+  opacity: .5;
+  top:0%;
+  left: 0%;
+  height:100%;
+  z-index: 1000;
+}
+
+.admin-filter-form{
+  padding: 1rem;
+}
+
+.app-top {
+    border-bottom: 4px solid branding.$color-plae-orange;
+    min-height: 75px;
+    background: branding.$color-iris-blue;
+    color: branding.$color-white;
+}
+.app-bottom {
+    background: branding.$color-iris-blue;
+    border-top: 4px solid branding.$color-plae-orange;
+    color: branding.$color-white;
+}
+
+.app-content {
+    min-height: calc(101vh - 200px);
+}
+
+.logo {
+    max-width: 539px;
+}
+
+form-input {
+    padding: 0.438rem 0.438rem;
+    border: 1px solid #ccc;
+    text-align: center;
+    background-color: #fff;
+}
+
+.form-input-container {
+    text-align: center;
+}
+
+.errorbox-icon{
+    position: absolute;
+    top:.75rem;
+    right:-2rem;
+}

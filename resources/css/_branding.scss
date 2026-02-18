@@ -1,0 +1,151 @@
+$color-ruby-red: #e0115f;
+$color-apple-red: #a1000e;
+$color-white: #ffffff;
+$color-black: #000000;
+$color-golden: #ffd580;
+$color-mist: #d2ecfa;
+$color-gray: #383f3f;
+$color-plae-orange: #ffdfdf;
+$color-iris-blue: #5D3FD3;
+$color-sky-blue: #00bfff;
+$color-turquoise-blue: #00ffef;
+$color-electric-blue: #7DF9FF;
+$color-cyan: #7b9fc7;
+$color-jungle-green: #2AAA8A;
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes zoom {
+  0% {
+    transform: scale(.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(0deg) scale(1.6);
+  }
+}
+
+@font-face {
+    font-family: 'ishdi';
+    src: url('fonts/ishdi.eot');
+    src: url('fonts/ishdi.eot?#iefix') format('embedded-opentype'),
+        url('fonts/ishdi.woff2') format('woff2'),
+        url('fonts/ishdi.woff') format('woff'),
+        url('fonts/ishdi.ttf') format('truetype'),
+        url('fonts/ishdi.svg#ishdi-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    font-family: ishdi, Sans-Serif;
+    font-size: 16px;
+    color: $color-black;
+    background: $color-white;
+}
+
+h1 {
+    font-size: 2.125rem;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 1.75rem;
+    font-weight: bold; 
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+h4 {
+    font-size: 1.375rem;
+    font-weight: bold; 
+}
+
+h5 {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+h6 {
+    font-size: 1.125rem;
+    font-weight: bold; 
+}
+
+a {
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+a:hover {
+   text-decoration: underline;
+}
+
+label {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+p {
+    line-height: 1.5rem;
+    font-size: 1rem;
+    margin: 0px;
+    padding: 0px;
+}
+
+.menu a {
+   font-size: 1.125rem;
+}
+
+.menu a:hover {
+   color: $color-apple-red;
+}
+
+ul{
+  font-size: 1rem;
+}
+
+/** buttons **/
+
+.button-admin{
+    background-image: linear-gradient(to right, $color-black 0%, $color-ruby-red  51%, $color-black  100%);
+    margin: 10px;
+    padding: 15px 45px;
+    text-align: center;
+    text-transform: capitalize;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: $color-white;            
+    border-radius: 10px;
+    display: block;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button-admin:hover{
+    transform: scale(1.05); 
+    background-color: $color-black;
+    background-position: right center;
+    box-shadow: 0 0 10px $color-ruby-red;
+    font-weight: bolder;
+    cursor: pointer;
+}
