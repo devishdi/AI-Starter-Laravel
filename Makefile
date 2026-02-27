@@ -1,10 +1,10 @@
 include .env
-.PHONY: enter-shell-php enter-shell-db enter-shell-front enter-shell-web-server enter-shell-redis \
+.PHONY: enter-shell-php enter-shell-db enter-shell-front enter-shell-web-server \
         project-start project-stop project-down project-show-logs project-clean app-install app-security-check \
         app-back-cache-rebuild app-back-migrate app-back-data-setup app-back-install \
-        app-back-composer-check app-back-security-check app-back-test-unit app-back-static-analysis \
-        app-back-cs-check app-back-cs-fix app-front-install app-front-build app-front-run app-front-security-check app-front-lint \
-        app-front-format app-front-format-fix app-front-test-unit ci-back-data-setup ci-back-test ci-back-data-setup \
+        app-back-composer-check app-back-security-check app-back-test-unit app-back-lint \
+        app-back-format-check app-back-format app-front-install app-front-build app-front-run app-front-security-check app-front-lint \
+        app-front-format-check app-front-format app-front-test-unit \
         db\:dump db\:import
 
 
@@ -57,9 +57,6 @@ enter-shell-front: ## to open a shell session in the Front end container
 
 enter-shell-web-server: ## to open a shell session in the nginx container
 	$(call enter-shell,nginx sh)
-
-enter-shell-redis: ## to open a shell session in the Redis container
-	$(call enter-shell,redis sh)
 
 project-start: ## to start the containers
 	$(call message,$(PROJECT_NAME): Starting Docker containers...)
@@ -128,20 +125,20 @@ app-back-test-unit: ## to run phpunit test
 	$(call run-in-container,www-data,php,php artisan test)
 	$(call message,$(PROJECT_NAME): Test Completed...)
 
-app-back-test-behat: ## to run behat test
-	$(call message,$(PROJECT_NAME): Start Testing...)
-	$(call run-in-container,www-data,php,vendor/bin/behat --strict --no-interaction)
-	$(call message,$(PROJECT_NAME): Test Completed...)
+app-back-build-route: ## to run phpunit test
+	$(call message,$(PROJECT_NAME): Building Routes...)
+	$(call run-in-container,www-data,php,php artisan ziggy:generate)
+	$(call message,$(PROJECT_NAME): Completed...)
 
-app-back-static-analysis: ## to run phpstan
+app-back-lint: ## to run phpstan
 	$(call message,$(PROJECT_NAME): Analysing the code...)
 	$(call run-in-container,root,php,vendor/bin/phpstan analyze --memory-limit=-1)
 	$(call message,$(PROJECT_NAME): Test Completed...)
 
-app-back-cs-check: ## to check errors
+app-back-format-check: ## to check errors
 	$(call run-in-container,www-data,php,vendor/bin/pint --test)
 
-app-back-cs-fix: ## to fix errors
+app-back-format: ## to fix errors
 	$(call run-in-container,www-data,php,vendor/bin/pint)
 
 ########################
@@ -166,41 +163,14 @@ app-front-security-check: ## to check security issues in the node dependencies
 app-front-lint: ## to lint the front end app
 	$(call run-in-container,root,nodejs, SHELL=/bin/bash yarn lint)
 
-app-front-format-fix: ## to test the front end app
+app-front-format: ## to test the front end app
 	$(call run-in-container,root,nodejs, SHELL=/bin/bash yarn format:fix)
 
-app-front-format: ## to test the front end app
+app-front-format-check: ## to test the front end app
 	$(call run-in-container,root,nodejs, SHELL=/bin/bash yarn format)
 
 app-front-test-unit:
 	$(call run-in-container,root,nodejs, SHELL=/bin/bash yarn vitest run)
-
-#######################
-# CI #
-#######################
-
-ci-back-data-setup: ## for ci only
-	$(call message,$(PROJECT_NAME): Installing Back end...)
-	@$(MAKE) -s app-back-install
-	$(call message,$(PROJECT_NAME): Back end is ready!)
-
-ci-back-test: ## for ci only
-	$(call message,$(PROJECT_NAME): Testing Back end...)
-	$(call run-in-container,www-data,php,vendor/bin/pint --test \
-	&& vendor/bin/pest && vendor/bin/phpstan analyze --memory-limit=-1)
-	$(call message,$(PROJECT_NAME): Back end is ready!)
-
-ci-front-data-setup: ## for ci only
-	$(call message,$(PROJECT_NAME): Installing Front end...)
-	$(call run-in-container,root,nodejs,SHELL=/bin/bash yarn cache clean --all && yarn \
-	 && yarn build)
-	$(call message,$(PROJECT_NAME): Front end is ready!)
-
-ci-front-test: ## for ci only
-	$(call message,$(PROJECT_NAME): Testing Back end...)
-	@$(MAKE) -s ci-front-data-setup
-	$(call run-in-container,root,nodejs,SHELL=/bin/bash yarn lint && yarn format && yarn test:unit)
-	$(call message,$(PROJECT_NAME): Front end is ready!)
 
 #######################
 # Database #
