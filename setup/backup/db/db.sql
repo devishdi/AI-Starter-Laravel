@@ -57,7 +57,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=156 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,7 +67,8 @@ CREATE TABLE `migrations` (
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
 INSERT INTO `migrations` VALUES
-(155,'2026_02_09_052352_add_weight_to_attributes_table',1);
+(155,'2026_02_09_052352_add_weight_to_attributes_table',1),
+(156,'2026_02_17_000000_create_blog_posts_table',2);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,7 +145,6 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `uuid` char(36) NOT NULL,
-  `mmid` varchar(100) NOT NULL,
   `mobile` varchar(50) NOT NULL,
   `role` tinyint(4) NOT NULL DEFAULT 2,
   `status` tinyint(4) NOT NULL DEFAULT 0,
@@ -153,12 +153,11 @@ CREATE TABLE `users` (
   `customer_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uuid` (`uuid`),
-  UNIQUE KEY `mmid` (`mmid`),
   UNIQUE KEY `mobile` (`mobile`),
   UNIQUE KEY `users_email_unique` (`email`),
   KEY `customer_name` (`customer_name`),
   KEY `role` (`role`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,8 +167,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES
-(6,'dev@ishdi.com',NULL,'$2y$12$7LcFbA5mqcwJLspqJQM1V.YgrYodaNxxjz/.lEKbnimhkfjv4drm.','hVPSjjxmp2iCoGHOYOPp8b9IAcD4hBWCwDi9BNhyU0NkWFeXPSpPstDr6Rus','2025-09-23 11:04:24','2025-09-23 11:04:24','9ff2309c-b20b-4801-890e-b3305c3e7b05','NI578OYR','9783657181',2,1,NULL,NULL,'Admin'),
-(49,'jafar@ishdi.com',NULL,'$2y$12$ze.3mJjHU9OZdDfbdubW6e3g/e5EGcDl9..GPtXzNAmM3naqC7CVi',NULL,'2026-02-13 11:08:09','2026-02-13 11:08:09','019c56af-d3c6-7128-b05f-8c185ed1260b','MSU124JWM','1744657468',2,1,NULL,NULL,'Jafar Test');
+(6,'dev@ishdi.com',NULL,'$2y$12$7LcFbA5mqcwJLspqJQM1V.YgrYodaNxxjz/.lEKbnimhkfjv4drm.','U8QvJvYRvVzceJMVH43Uoluf9TwCa0AOdiAzSkZKqbtWm3xm4HT64OTTy16Y','2025-09-23 11:04:24','2025-09-23 11:04:24','9ff2309c-b20b-4801-890e-b3305c3e7b05','9783657181',2,1,NULL,NULL,'Admin');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -182,4 +180,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-02-18 15:37:09
+-- Dump completed on 2026-02-27 12:23:52
