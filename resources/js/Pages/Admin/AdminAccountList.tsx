@@ -45,7 +45,6 @@ const AdminAccountList = (props: AccountListInterface) => {
                                 <table className="table-fixed admin-table">
                                     <thead>
                                         <tr>
-                                            <th>MMID</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Mobile</th>
@@ -59,7 +58,6 @@ const AdminAccountList = (props: AccountListInterface) => {
                                     <tbody>
                                         {users.data.map((user) => (
                                             <tr key={user.uuid}>
-                                                <td>{user.mmid}</td>
                                                 <td>{user.customer_name}</td>
                                                 <td>{user.email}</td>
                                                 <td>{user.mobile}</td>
