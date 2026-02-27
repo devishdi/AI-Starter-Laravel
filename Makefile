@@ -94,11 +94,11 @@ app-security-check: ## to run security check
 
 app-back-cache-rebuild: ## to rebuild the back end cache
 	$(call message,$(PROJECT_NAME): Clearing Back end cache...)
-	$(call run-in-container,www-data,php,php artisan cache:clear && php artisan config:clear && php artisan route:clear && php artisan view:clear && php artisan event:clear)
+	$(call run-in-container,root,php,php artisan cache:clear && php artisan config:clear && php artisan route:clear && php artisan view:clear && php artisan event:clear)
 
 app-back-migrate: ## to run migration
 	$(call message,$(PROJECT_NAME): Starting Migration...)
-	$(call run-in-container,www-data,php,php artisan migrate)
+	$(call run-in-container,root,php,php artisan migrate)
 
 app-back-data-setup: ## to clean up back end and import fresh db
 	$(call message,$(PROJECT_NAME): Installing Back end...)
@@ -109,25 +109,25 @@ app-back-data-setup: ## to clean up back end and import fresh db
 
 app-back-install: ## to install back end
 	$(call message,$(PROJECT_NAME): Installing/updating Back end dependencies...)
-	$(call run-in-container,www-data,php,composer install --prefer-dist)
+	$(call run-in-container,root,php,composer install --prefer-dist)
 	$(call message,$(PROJECT_NAME): Back end is ready! $(BACKEND_URL))
 
 app-back-composer-check: ## to validate composer config
-	$(call run-in-container,www-data,php,composer validate --no-check-all)
-	$(call run-in-container,www-data,php,composer normalize --dry-run)
+	$(call run-in-container,root,php,composer validate --no-check-all)
+	$(call run-in-container,root,php,composer normalize --dry-run)
 
 app-back-security-check: ## to check security issues in the PHP dependencies
 	$(call message,$(PROJECT_NAME): Checking Back end...)
-	$(call run-in-container,www-data,php,vendor/bin/security-checker security:check)
+	$(call run-in-container,root,php,vendor/bin/security-checker security:check)
 
 app-back-test-unit: ## to run phpunit test
 	$(call message,$(PROJECT_NAME): Start Testing...)
-	$(call run-in-container,www-data,php,php artisan test)
+	$(call run-in-container,root,php,php artisan test)
 	$(call message,$(PROJECT_NAME): Test Completed...)
 
 app-back-build-route: ## to run phpunit test
 	$(call message,$(PROJECT_NAME): Building Routes...)
-	$(call run-in-container,www-data,php,php artisan ziggy:generate)
+	$(call run-in-container,root,php,php artisan ziggy:generate)
 	$(call message,$(PROJECT_NAME): AllRoutes create...)
 
 app-back-lint: ## to run phpstan
@@ -136,10 +136,10 @@ app-back-lint: ## to run phpstan
 	$(call message,$(PROJECT_NAME): Test Completed...)
 
 app-back-format-check: ## to check errors
-	$(call run-in-container,www-data,php,vendor/bin/pint --test)
+	$(call run-in-container,root,php,vendor/bin/pint --test)
 
 app-back-format: ## to fix errors
-	$(call run-in-container,www-data,php,vendor/bin/pint)
+	$(call run-in-container,root,php,vendor/bin/pint)
 
 ########################
 # App Front end #
