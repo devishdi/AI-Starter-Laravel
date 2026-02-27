@@ -18,3 +18,8 @@ Front end commands to run the application:
 
 - make app-front-build
 - make app-front-run
+
+Admin Panel
+
+- [http://laravel.localdev/admin](http://laravel.localdev/admin)
+- test@ishdi.com/admin
