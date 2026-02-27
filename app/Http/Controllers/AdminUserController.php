@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Admin\AdminUserCrudRequest;
 use App\Http\Requests\Auth\AdminLoginRequest;
 use App\Models\User;
+use App\Services\CommonHelperService;
 use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -33,7 +34,7 @@ class AdminUserController extends Controller
         $request->session()->regenerate();
 
         return redirect()->route('admin_dashboard')
-            ->with('success', sprintf('Welcome back %s', $request->user()?->mmid));
+            ->with('success', sprintf('Welcome back %s', $request->user()?->customer_name));
     }
 
     /**
@@ -85,7 +86,7 @@ class AdminUserController extends Controller
                 throw ValidationException::withMessages(['email' => trans('User creation failed')]);
             }
 
-            $message = sprintf('User has been created successfully with MMID %s', $user->mmid);
+            $message = sprintf('User has been created successfully with name %s', $user->customer_name);
         } else {
             $user = $this->userService->updateUser($uuid, [
                 'customer_name' => $request->customer_name,
@@ -98,7 +99,7 @@ class AdminUserController extends Controller
                 throw ValidationException::withMessages(['email' => trans('User updation failed')]);
             }
 
-            $message = sprintf('User with MMID %s has been updated successfully', $user->mmid);
+            $message = sprintf('User with Name %s has been updated successfully', $user->customer_name);
         }
 
         return redirect()->route('admin_account_list')->with('success', $message);

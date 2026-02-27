@@ -130,84 +130,6 @@ class UserRepository implements UserRepositoryInterface
         }
     }
 
-    public function getDataByMmid(string $id): ?User
-    {
-        try {
-            return User::where('mmid', $id)->first();
-        } catch (Throwable $e) {
-            report($e);
-
-            return null;
-        }
-    }
-
-    public function getDataByType(string $id, string $type): ?User
-    {
-        try {
-            return User::where($type, $id)->first();
-        } catch (Throwable $e) {
-            report($e);
-
-            return null;
-        }
-    }
-
-    public function getProfile(string $id): ?User
-    {
-        try {
-            return User::with(
-                [
-                    'profile',
-                    'address',
-                    'education',
-                    'job',
-                    'interest',
-                    'membership',
-                    'language',
-                    'photo',
-                    'physical',
-                    'sibling',
-                    'term',
-                    'family',
-                    'marriage',
-                ]
-            )->where('uuid', $id)->first();
-        } catch (Throwable $e) {
-            report($e);
-
-            return null;
-        }
-    }
-
-    public function getPartnerProfile(string $id, string $gender): ?User
-    {
-        try {
-            return User::with(
-                [
-                    'profile',
-                    'address',
-                    'education',
-                    'job',
-                    'interest',
-                    'language',
-                    'photo',
-                    'physical',
-                    'family',
-                ]
-            )
-                ->where('uuid', '=', $id)
-                ->where('status', '=', true)
-                ->whereHas('profile', function ($query) use ($gender) {
-                    $query->where('gender', '=', $gender);
-                })
-                ->first();
-        } catch (Throwable $e) {
-            report($e);
-
-            return null;
-        }
-    }
-
     public function deleteModel(User $user): bool
     {
         try {
@@ -218,30 +140,6 @@ class UserRepository implements UserRepositoryInterface
             report($e);
 
             return false;
-        }
-    }
-
-    /**
-     * @param  string[]  $role
-     * @return array<array{id: int, mmid: string, customer_name: string}>
-     */
-    public function getUsersForSelect(array $role): array
-    {
-        try {
-            return User::whereIn('role', $role)
-                ->orderBy('customer_name')
-                ->get(['id', 'mmid', 'customer_name'])
-                ->map(fn (User $u) => [
-                    'id' => $u->id,
-                    'mmid' => $u->mmid,
-                    'customer_name' => $u->customer_name ?? $u->mmid,
-                ])
-                ->values()
-                ->all();
-        } catch (Throwable $e) {
-            report($e);
-
-            return [];
         }
     }
 }

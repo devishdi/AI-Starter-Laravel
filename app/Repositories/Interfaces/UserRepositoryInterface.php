@@ -43,29 +43,6 @@ interface UserRepositoryInterface
     public function getUsersByRole(array $role = [CommonHelperService::ROLE_NORMAL_USER]): array;
 
     /**
-     * Get user by MMID
-     */
-    public function getDataByMmid(string $id): ?User;
-
-    /**
-     * Get user by type wher type = any of the user field
-     */
-    public function getDataByType(string $id, string $type): ?User;
-
-    /**
-     * Get user profile data by uuid
-     */
-    public function getProfile(string $id): ?User;
-
-    /**
-     * Get users for select/dropdown (id, mmid, customer_name)
-     *
-     * @param  string[]  $role
-     * @return array<array{id: int, mmid: string, customer_name: string}>
-     */
-    public function getUsersForSelect(array $role): array;
-
-    /**
      * To delete an item permanently from database
      */
     public function destroy(string $id): bool;

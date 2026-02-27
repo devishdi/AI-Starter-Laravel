@@ -2,12 +2,10 @@
 
 namespace App\Services;
 
-use App\Exceptions\AppException;
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use Exception;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Throwable;
@@ -66,21 +64,6 @@ class UserService
         return $this->userRepository->getData($uuid);
     }
 
-    public function getLoggedInUserProfile(): User
-    {
-        $uuid = Auth::user()?->getUuid();
-        $user = null;
-        if ($uuid) {
-            $user = $this->getUserProfile($uuid);
-        }
-
-        if ($user === null) {
-            throw new AppException("Invalid User UUID: $uuid");
-        }
-
-        return $user;
-    }
-
     /**
      * @param  string[]  $role
      * @return array<mixed>
@@ -92,79 +75,9 @@ class UserService
         return $result;
     }
 
-    public function getUserProfile(string $uuid): ?User
+    public function forceDelete(User $user): bool
     {
-        return $this->userRepository->getProfile($uuid);
-    }
-
-    public function getProfileFromRequest(?string $uuid = null): ?User
-    {
-        if (! $uuid) {
-            $uuid = $this->getUuidfromRequest();
-        }
-
-        return $this->userRepository->getProfile($uuid);
-    }
-
-    public function getUidfromRequest(?string $uuid = null): string
-    {
-        $userId = Auth::user()?->getUid();
-        if (Auth::user()?->isAdmin() && $uuid) {
-            $user = $this->userRepository->getData($uuid);
-
-            if ($user instanceof User) {
-                $userId = $user->getUid();
-            } else {
-                throw new AppException('Trying to access invalid user profile');
-            }
-        }
-
-        if (! $userId) {
-            throw new AppException('Trying to access invalid user profile');
-        }
-
-        return $userId;
-    }
-
-    public function getUuidfromRequest(): string
-    {
-        $uuid = Auth::user()?->getUuid();
-        if (! $uuid) {
-            throw new AppException('Trying to access invalid user profile');
-        }
-
-        return $uuid;
-    }
-
-    public function checkUserCanLogin(string $userName, string $password): ?User
-    {
-        $type = 'mmid';
-
-        if (ctype_digit($userName)) {
-            $type = 'mobile';
-        }
-
-        $user = $this->userRepository->getDataByType($userName, $type);
-
-        if ($user instanceof User && Hash::check($password, $user->password)) {
-            return $user;
-        }
-
-        return null;
-    }
-
-    /**
-     * @param  array<mixed>  $filter
-     * @return array<mixed>
-     */
-    public function getDatas(array $filter): array
-    {
-        return $this->userRepository->getDatas($filter);
-    }
-
-    public function getUserByProfileId(string $mmid): ?User
-    {
-        return $this->userRepository->getDataByMmid($mmid);
+        return $this->userRepository->deleteModel($user);
     }
 
     private function generateUuid(): string
@@ -178,33 +91,5 @@ class UserService
         }
 
         return $uuid;
-    }
-
-    private function gererateProfileId(string $caste): string
-    {
-        $mmid = $this->randomGenerator->generateMmid($caste);
-        $user = $this->getUserByProfileId($mmid);
-
-        if ($user instanceof User) {
-            return $this->gererateProfileId($caste);
-        }
-
-        return $mmid;
-    }
-
-    public function forceDelete(User $user): bool
-    {
-        return $this->userRepository->deleteModel($user);
-    }
-
-    /**
-     * Get users for select/dropdown (id, mmid, customer_name).
-     *
-     * @param  string[]  $role
-     * @return array<array{id: int, mmid: string, customer_name: string}>
-     */
-    public function getUsersForSelect(array $role = [CommonHelperService::ROLE_NORMAL_USER, CommonHelperService::ROLE_PREMIUM]): array
-    {
-        return $this->userRepository->getUsersForSelect($role);
     }
 }

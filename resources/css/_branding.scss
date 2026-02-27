@@ -149,3 +149,52 @@ ul{
     font-weight: bolder;
     cursor: pointer;
 }
+
+/** validation **/
+.validation-error{
+  color:$color-apple-red;
+  font-size: .625rem;
+  font-weight: bold;
+  text-align: center;
+  display: block;
+}
+
+.tooltip-error{
+  background-color: $color-apple-red !important;
+  color: $color-white;
+  font-size: .75rem;
+  font-weight: bold;
+  text-align: center;
+  z-index: 1001;
+}
+
+.validation-error-active{
+     animation: fadeIn ease 3s;
+  -webkit-animation: fadeIn ease 3s;
+  -moz-animation: fadeIn ease 3s;
+  -o-animation: fadeIn ease 3s;
+  -ms-animation: fadeIn ease 3s;    
+}
+
+.form-input-notvalid {
+  box-shadow: inset 2px 2px 12px $color-apple-red,
+            inset -4px -4px 16px $color-white;  
+   border: 1px solid $color-black;        
+}
+
+.form-checkbox-notvalid .checkmark {
+  box-shadow: inset 2px 2px 12px $color-apple-red,
+            inset -4px -4px 16px $color-white;  
+   border: 1px solid $color-black;        
+}
+
+.form-select-notvalid .form-select-box__control {
+  box-shadow: inset 2px 2px 12px $color-apple-red,
+            inset -4px -4px 16px $color-white;  
+   border: 1px solid $color-black;        
+}
+
+.form-input-notvalid::placeholder, .form-select-notvalid::placeholder {
+  opacity: 0;
+}
+
