@@ -128,7 +128,7 @@ app-back-test-unit: ## to run phpunit test
 app-back-build-route: ## to run phpunit test
 	$(call message,$(PROJECT_NAME): Building Routes...)
 	$(call run-in-container,www-data,php,php artisan ziggy:generate)
-	$(call message,$(PROJECT_NAME): Completed...)
+	$(call message,$(PROJECT_NAME): AllRoutes create...)
 
 app-back-lint: ## to run phpstan
 	$(call message,$(PROJECT_NAME): Analysing the code...)
